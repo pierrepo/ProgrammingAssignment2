@@ -1,5 +1,27 @@
 ## R code for programming assignment 2
 
+## Example of use:
+# > source("cachematrix.R")
+# > a = matrix(c(1, 2, 3, 0, 1, 4, 5, 6, 0), c(3, 3))
+# > solve(a)
+# [,1] [,2] [,3]
+# [1,]  -24   20   -5
+# [2,]   18  -15    4
+# [3,]    5   -4    1
+# > t = makeCacheMatrix(a)
+# > cacheSolve(t)
+# [,1] [,2] [,3]
+# [1,]  -24   20   -5
+# [2,]   18  -15    4
+# [3,]    5   -4    1
+# > cacheSolve(t)
+# getting cached data
+# [,1] [,2] [,3]
+# [1,]  -24   20   -5
+# [2,]   18  -15    4
+# [3,]    5   -4    1
+
+
 ## makeCacheMatrix creates a list object with the ability to cache the inverse 
 ## of the input matrix
 makeCacheMatrix <- function(x = matrix()) {
