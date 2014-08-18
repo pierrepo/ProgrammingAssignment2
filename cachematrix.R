@@ -1,15 +1,15 @@
-## Put comments here that give an overall description of what your
-## functions do
+## R code for programming assignment 2
 
-## makeCacheMatrix creates a list object with the cached inverse matrix
+## makeCacheMatrix creates a list object with the ability to cache the inverse 
+## of the input matrix
 makeCacheMatrix <- function(x = matrix()) {
     ## "x" is a matrix object
     
-    ## the return list has 4 elements:
-    ## set(): define/create the matrix
-    ## get(): get the content of the matrix
-    ## setinverse(): define the inverse of the matrix
-    ## getinverse(): retrieve the cached inverse of the matrix
+    ## Returns a list of 4 elements:
+    ## set(): define/create the matrix content and its inverse
+    ## get(): get the matrix
+    ## setinverse(): store the inverse of the matrix
+    ## getinverse(): get the inverse of the matrix from cache
     inv <- NULL
     set <- function(y) {
         x <<- y
@@ -24,19 +24,27 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## cacheSolve computes inverse of an object produces by makeCacheMatrix()
-## at first run, the inverse matrix is computed and cached
-## other time, the inverse matrix is retrieved from cache memory
+## cacheSolve computes the inverse of an object produces by makeCacheMatrix()
+## at first run, the inverse matrix is computed and stored in cache
+## at next runs, the inverse matrix is retrieved from the cache memory
 cacheSolve <- function(x, ...) {
-    ## "x" is a an object produced by makeCacheMatrix
-    ## Return a matrix that is the inverse of 'x'
+    ## "x" is a an object produced by makeCacheMatrix()
+    
+    ## Returns a matrix that is the inverse of 'x'
+    
+    ## Retrieved inverse from cache
+    ## output the inverse and quit the function if not null
     inv <- x$getinverse()
     if(!is.null(inv)) {
         message("getting cached data")
         return(inv)
     }
-    data <- x$get()
-    inv <- solve(data, ...)
+    
+    ## If the inverse is null (i.e. not already computed):
+    ## get the content of matrix in cache,
+    ## compute the inverse with solve(), store it in cache and output it
+    mat <- x$get()
+    inv <- solve(mat, ...)
     x$setinverse(inv)
     inv
 }
